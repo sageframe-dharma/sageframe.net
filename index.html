@@ -508,7 +508,8 @@
     <span>© 2026 Andrew T. Marcus · sageframe</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
     const stored = localStorage.getItem('sf-theme');
     const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initial = stored || (sysDark ? 'dark' : 'light');
@@ -517,4 +518,13 @@
     function setTheme(t) {
       document.documentElement.setAttribute('data-theme', t);
       document.getElementById('theme-label').textContent = t === 'dark' ? 'light' : 'dark';
-   
+      localStorage.setItem('sf-theme', t);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+</body>
+</html>
