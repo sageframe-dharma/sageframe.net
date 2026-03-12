@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sageframe</title>
+  <meta name="description" content="Sageframe — open source tools, systems, and projects by Andrew T. Marcus. Building in public. Learning out loud." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    [data-theme="dark"] {
+      --bg:         #1a1a1a;
+      --bg-raised:  #212120;
+      --text:       #c8c2b8;
+      --prose:      #b0a99e;
+      --muted:      #777770;
+      --rule:       #2e2e2c;
+      --accent:     #c45a2d;
+      --icon-bg:    #212120;
+      --badge-rel-border: #3a5a3a; --badge-rel-color: #6a9a6a;
+      --badge-dev-border: #4a3a1a; --badge-dev-color: #9a7a3a;
+      --badge-live-border:#3a5a3a; --badge-live-color: #6a9a6a;
+    }
+
+    [data-theme="light"] {
+      --bg:         #f5f2ed;
+      --bg-raised:  #ebe6dd;
+      --text:       #1a1a1a;
+      --prose:      #4a4a4a;
+      --muted:      #7a7a7a;
+      --rule:       #d0c9be;
+      --accent:     #c45a2d;
+      --icon-bg:    #ebe6dd;
+      --badge-rel-border: #5a8a5a; --badge-rel-color: #3a6a3a;
+      --badge-dev-border: #8a6a2a; --badge-dev-color: #6a4a0a;
+      --badge-live-border:#5a8a5a; --badge-live-color: #3a6a3a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    body {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 6rem;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.08em;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .sf-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .sf-icon .icon-bg { fill: var(--icon-bg); transition: fill 0.2s; }
+
+    .wordmark {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .tagline {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--muted);
+      padding-left: calc(36px + 0.9rem);
+      margin-bottom: 0.3rem;
+    }
+
+    .byline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      opacity: 0.7;
+      padding-left: calc(36px + 0.9rem);
+      margin-bottom: 2.75rem;
+    }
+
+    /* ── About ── */
+    .about {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--prose);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      padding-bottom: 2.75rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .about p + p { margin-top: 0.85rem; }
+    .about a { color: var(--accent); text-decoration: none; }
+    .about a:hover { text-decoration: underline; }
+
+    /* ── Section ── */
+    section { margin-bottom: 2.75rem; }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+
+    .subsection-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 1.5rem 0 0.75rem;
+      opacity: 0.6;
+    }
+
+    .subsection-label:first-of-type { margin-top: 0; }
+
+    .section-github {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+      opacity: 0.75;
+    }
+    .section-github a { color: var(--muted); text-decoration: none; }
+    .section-github a:hover { color: var(--accent); }
+
+    /* ── Project / repo cards ── */
+    .card {
+      display: block;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid var(--rule);
+      background: var(--bg-raised);
+      text-decoration: none;
+      color: inherit;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.15s;
+    }
+    .card:hover { border-color: var(--accent); }
+
+    /* card with sub-links */
+    .card-group {
+      border: 1px solid var(--rule);
+      background: var(--bg-raised);
+      margin-bottom: 0.6rem;
+    }
+    .card-group:hover { border-color: var(--accent); }
+    .card-group-body { padding: 0.9rem 1.1rem; }
+    .card-group-body a { text-decoration: none; color: inherit; display: block; }
+
+    .card-sub-links {
+      border-top: 1px solid var(--rule);
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .card-sub-link {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.45rem 1.1rem;
+      border-right: 1px solid var(--rule);
+      transition: color 0.15s;
+    }
+    .card-sub-link:last-child { border-right: none; }
+    .card-sub-link:hover { color: var(--accent); }
+
+    .card.dim { opacity: 0.6; }
+    .card.dim:hover { opacity: 1; }
+
+    .card-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .card-desc {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.55;
+    }
+
+    .card-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.56rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.1rem 0.35rem;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+    .badge.released  { border-color: var(--badge-rel-border); color: var(--badge-rel-color); }
+    .badge.dev       { border-color: var(--badge-dev-border); color: var(--badge-dev-color); }
+    .badge.live      { border-color: var(--badge-live-border); color: var(--badge-live-color); }
+    .badge.archived  { border-color: var(--rule); color: var(--muted); opacity: 0.6; }
+
+    /* ── Link list ── */
+    .link-list { list-style: none; }
+    .link-list li { border-bottom: 1px solid var(--rule); }
+    .link-list li:first-child { border-top: 1px solid var(--rule); }
+
+    .link-list a {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      column-gap: 1rem;
+      padding: 0.75rem 0;
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.15s;
+    }
+    .link-list a:hover { color: var(--accent); }
+    .link-list a:hover .link-sub { color: var(--muted); }
+
+    .link-label { font-size: 0.82rem; grid-column: 1; grid-row: 1; }
+    .link-sub {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 300;
+      color: var(--muted);
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: 0.15rem;
+      line-height: 1.5;
+    }
+    .link-meta {
+      font-size: 0.65rem;
+      color: var(--muted);
+      white-space: nowrap;
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 0.15rem;
+    }
+
+    /* ── Elsewhere ── */
+    .elsewhere {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.25rem;
+    }
+    .elsewhere a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--rule);
+      padding: 0.28rem 0.55rem;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .elsewhere a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.65rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span id="theme-label">light</span>
+  </button>
+
+  <!-- HEADER -->
+  <div class="header">
+    <svg class="sf-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 301 301">
+      <circle class="icon-bg" cx="150.5" cy="150.5" r="150.5"/>
+      <g stroke="#c45a2d" stroke-linecap="square" stroke-miterlimit="10" stroke-width="23" fill="none">
+        <line x1="150.19" y1="52.98" x2="150.19" y2="257.92"/>
+        <line x1="86.88" y1="106.38" x2="182.15" y2="203.64"/>
+        <line x1="86.88" y1="236.27" x2="150.19" y2="172.97"/>
+        <line x1="150.19" y1="43.08" x2="214.12" y2="106.38"/>
+        <line x1="86.88" y1="106.38" x2="150.19" y2="43.08"/>
+      </g>
+    </svg>
+    <div class="wordmark">sageframe</div>
+  </div>
+  <div class="tagline">Open source tools, systems, and projects. Building in public. Learning out loud.</div>
+  <div class="byline">Andrew T. Marcus // Tyro Sageframe</div>
+
+  <!-- ABOUT -->
+  <div class="about">
+    <p>Sageframe is a personal knowledge architecture — a system of systems where infrastructure, documentation, philosophy, and creative practice are unified under a single living taxonomy. Built in Obsidian, deployed on self-hosted infrastructure, and governed by its own cartographic discipline, Sageframe treats the act of organizing knowledge as a practice in itself: part engineering, part epistemology, part meditation. It draws on Zen concepts of impermanence and beginner's mind to formalize how one person learns, builds, maintains, and reflects — then makes that process legible, reproducible, and open. If Borges had a homelab and Wittgenstein wrote YAML, they might have built something like this.</p>
+    <p>Tyro Sageframe is the persona I work under — "tyro" literally means beginner — because when you throw yourself headfirst into programming, systems thinking, AI, and informatics from absolute zero, you might as well own the bit and name yourself after the journey.</p>
+    <p>The software and projects here are a byproduct of that practice: explorations from love or curiosity and tools built out of genuine need, released because others probably need them too. I'm interested in digital sovereignty — keeping your files yours, your tools local, your thinking your own. Professional work and consulting at <a href="https://atmarcus.net">atmarcus.net</a>.</p>
+  </div>
+
+  <!-- SOFTWARE -->
+  <section>
+    <div class="section-label">// software</div>
+    <div class="section-github"><a href="https://github.com/sageframe-no-kaji" target="_blank" rel="noopener">github/sageframe-no-kaji</a> — all public repos, contributions welcome</div>
+
+    <!-- m4Bookmaker — has product page -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://github.com/sageframe-no-kaji/m4bmaker" target="_blank" rel="noopener">
+          <div class="card-name">m4Bookmaker <span class="badge released">released</span></div>
+          <div class="card-desc">Convert a folder of MP3s into a clean, properly-chaptered M4B audiobook. Visual chapter editor with built-in audio player, batch queue, and automatic audio repair. Mac &amp; Windows.</div>
+          <div class="card-meta">open source · GPL-3.0 · github/sageframe-no-kaji/m4bmaker</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://m4bookmaker.sageframe.net" target="_blank" rel="noopener">↗ m4bookmaker.sageframe.net</a>
+      </div>
+    </div>
+
+    <!-- Hōzō -->
+    <a class="card" href="https://github.com/sageframe-no-kaji/hozo-sentinel" target="_blank" rel="noopener">
+      <div class="card-name">Hōzō 宝蔵 <span class="badge released">released</span></div>
+      <div class="card-desc">Wake-on-demand ZFS backup orchestrator. Runs entirely on your controller machine — uses syncoid to push ZFS snapshots to a remote backup box over SSH. No agent required on the remote; it only needs ZFS, SSH, and appropriate permissions.</div>
+      <div class="card-meta">open source · github/sageframe-no-kaji/hozo-sentinel</div>
+    </a>
+
+    <!-- Kanyō (software entry) -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://github.com/sageframe-no-kaji/kanyo-contemplating-falcons-dev" target="_blank" rel="noopener">
+          <div class="card-name">Kanyō 観鷹 <span class="badge released">released</span></div>
+          <div class="card-desc">Computer vision pipeline for wildlife monitoring — detects and archives visits to a nest or perch from a live camera feed. Built to watch peregrine falcons, deployable for any animal with a fixed observation point.</div>
+          <div class="card-meta">open source · github/sageframe-no-kaji/kanyo-contemplating-falcons-dev</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/kanyo-viewer" target="_blank" rel="noopener">↗ kanyo-viewer (open source frontend)</a>
+      </div>
+    </div>
+
+    <!-- pptx-builder -->
+    <a class="card" href="https://github.com/sageframe-no-kaji/pptx-builder" target="_blank" rel="noopener">
+      <div class="card-name">pptx-builder <span class="badge released">released</span></div>
+      <div class="card-desc">Programmatic presentation generation from structured content and templates.</div>
+      <div class="card-meta">open source · github/sageframe-no-kaji/pptx-builder</div>
+    </a>
+
+    <!-- Shodō -->
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/shodo" target="_blank" rel="noopener">
+      <div class="card-name">Shodō 書道 <span class="badge dev">in development</span></div>
+      <div class="card-desc">A local-first tool that turns exported AI conversation history into searchable, generative knowledge. Semantic search, topic timelines, and LLM synthesis — past conversations become a second memory. Runs entirely on personal hardware.</div>
+      <div class="card-meta">github/sageframe-no-kaji/shodo · components: Shūji (compilation engine) / Shodō (learning interface)</div>
+    </a>
+
+    <!-- Satori -->
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/satori-internal-affairs" target="_blank" rel="noopener">
+      <div class="card-name">Satori <span class="badge dev">in development</span></div>
+      <div class="card-desc">An interactive medical mystery simulator — a clinical reasoning game where the player makes real diagnostic decisions under pressure. Patients have secrets, test results take time, conditions worsen, and death is a possible consequence. Built for smart teenagers who love House and Grey's Anatomy. The medicine is real. The stakes feel real. Uses AI as both a guardrailed case generator and a live engine for conversational authenticity.</div>
+      <div class="card-meta">github/sageframe-no-kaji/satori-internal-affairs</div>
+    </a>
+
+    <!-- audiobook-qc -->
+    <a class="card" href="https://github.com/sageframe-no-kaji/audiobook-qc" target="_blank" rel="noopener">
+      <div class="card-name">audiobook-qc <span class="badge released">released</span></div>
+      <div class="card-desc">Quality control tooling for audiobook archives — validates chapter structure, audio integrity, and metadata across large collections.</div>
+      <div class="card-meta">open source · github/sageframe-no-kaji/audiobook-qc</div>
+    </a>
+
+  </section>
+
+  <!-- PROJECTS -->
+  <section>
+    <div class="section-label">// projects</div>
+
+    <!-- Kanyō (project entry) -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://kanyo.sageframe.net" target="_blank" rel="noopener">
+          <div class="card-name">The Kanyō Project 観鷹 <span class="badge live">live</span> <span class="badge dev">beta</span></div>
+          <div class="card-desc"><em>Contemplating Falcons.</em> An open source peregrine falcon monitoring and event archive deployed at Harvard's Memorial Hall. Live camera feeds, computer vision detection, and a public event archive — one visit at a time.</div>
+          <div class="card-meta">kanyo.sageframe.net</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Aspirational Intelligence -->
+    <a class="card dim" href="https://www.instagram.com/aspirationalintelligence" target="_blank" rel="noopener">
+      <div class="card-name">Aspirational Intelligence <span class="badge archived">archived</span></div>
+      <div class="card-desc">Early explorations in AI-generated image making — an Instagram-era creative practice examining how machine vision interprets aspiration, aesthetics, and desire. More or less complete, still worth a look.</div>
+      <div class="card-meta">instagram · @aspirationalintelligence</div>
+    </a>
+
+  </section>
+
+  <!-- RESEARCH & WRITING -->
+  <section>
+    <div class="section-label">// research &amp; writing</div>
+    <ul class="link-list">
+      <li>
+        <a href="https://sageframe.substack.com" target="_blank" rel="noopener">
+          <span class="link-label">Constructive Interference</span>
+          <span class="link-sub">Essays on human-AI collaboration, systems thinking, and how structured design unlocks the real value of AI tools. Not prompt engineering — collaboration architecture.</span>
+          <span class="link-meta">substack</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/sageframe-no-kaji/ho-system" target="_blank" rel="noopener">
+          <span class="link-label">The Ho System 歩</span>
+          <span class="link-sub">A methodology for human-AI collaborative software development — enabling people with strong systems thinking but no formal engineering background to build production-quality software. Kanyō is its proof of concept.</span>
+          <span class="link-meta">github</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://medium.com/@tyrosageframe" target="_blank" rel="noopener">
+          <span class="link-label">Technical writing</span>
+          <span class="link-sub">Practical pieces on digital sovereignty, self-hosted tools, and owning your own data. Concrete problems, real solutions.</span>
+          <span class="link-meta">medium</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- PROFESSIONAL -->
+  <section>
+    <div class="section-label">// professional</div>
+    <ul class="link-list">
+      <li>
+        <a href="https://atmarcus.net" target="_blank" rel="noopener">
+          <span class="link-label">atmarcus.net</span>
+          <span class="link-sub">Portfolio, case studies, and consulting practice. Systems design, organizational strategy, and human-AI collaboration methodology.</span>
+          <span class="link-meta">portfolio</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://linkedin.com/in/andrewtoddmarcus" target="_blank" rel="noopener">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-sub">Professional history and network.</span>
+          <span class="link-meta">linkedin</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- EPHEMERA -->
+  <section>
+    <div class="section-label">// ephemera</div>
+    <ul class="link-list">
+      <li>
+        <a href="https://www.buymeacoffee.com/sageframe" target="_blank" rel="noopener">
+          <span class="link-label">Buy Me a Coffee</span>
+          <span class="link-sub">If something here saved you an afternoon, you're welcome to say so.</span>
+          <span class="link-meta">buymeacoffee</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <a href="/cdn-cgi/l/email-protection#15616c677a556674727073677478703b7b7061"><span class="__cf_email__" data-cfemail="9befe2e9f4dbe8fafcfefde9faf6feb5f5feef">[email&#160;protected]</span></a>
+    <span>© 2026 Andrew T. Marcus · sageframe</span>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const stored = localStorage.getItem('sf-theme');
+    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (sysDark ? 'dark' : 'light');
+    setTheme(initial);
+
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('theme-label').textContent = t === 'dark' ? 'light' : 'dark';
+   
