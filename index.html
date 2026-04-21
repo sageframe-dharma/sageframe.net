@@ -243,6 +243,7 @@
     .badge.dev       { border-color: var(--badge-dev-border); color: var(--badge-dev-color); }
     .badge.live      { border-color: var(--badge-live-border); color: var(--badge-live-color); }
     .badge.archived  { border-color: var(--rule); color: var(--muted); opacity: 0.6; }
+    .badge.planned   { border-color: var(--badge-dev-border); color: var(--badge-dev-color); opacity: 0.65; }
 
     /* ── Link list ── */
     .link-list { list-style: none; }
@@ -341,7 +342,7 @@
 
   <!-- ABOUT -->
   <div class="about">
-    <p>Sageframe is a personal knowledge architecture — a system of systems where infrastructure, documentation, philosophy, and creative practice are unified under a single living taxonomy. Built in Obsidian, deployed on self-hosted infrastructure, and governed by its own cartographic discipline, Sageframe treats the act of organizing knowledge as a practice in itself: part engineering, part epistemology, part meditation. It draws on Zen concepts of impermanence and beginner's mind to formalize how one person learns, builds, maintains, and reflects — then makes that process legible, reproducible, and open. If Borges had a homelab and Wittgenstein wrote YAML, they might have built something like this.</p>
+    <p>Sageframe is a personal knowledge architecture — a system of systems where infrastructure, documentation, philosophy, and creative practice are unified under a single living taxonomy. Built in Obsidian, deployed on self-hosted infrastructure, and governed by its own cartographic discipline, Sageframe treats the act of organizing knowledge as a practice in itself: part engineering, part epistemology, part meditation. It draws on Zen concepts of impermanence and beginner's mind to formalize how one person learns, builds, maintains, and reflects — then makes that process legible, reproducible, and open. If Borges had a homelab and Wittgenstein wrote YAML, they might have built something like this. <a href="https://atmarcus.net/work/sageframe">Learn more about Sageframe as a knowledge architecture.</a></p>
     <p>Tyro Sageframe is the persona I work under — "tyro" literally means beginner — because when you throw yourself headfirst into programming, systems thinking, AI, and informatics from absolute zero, you might as well own the bit and name yourself after the journey.</p>
     <p>The software and projects here are a byproduct of that practice: explorations from love or curiosity and tools built out of genuine need, released because others probably need them too. I'm interested in digital sovereignty — keeping your files yours, your tools local, your thinking your own. Professional work and consulting at <a href="https://atmarcus.net">atmarcus.net</a>.</p>
   </div>
@@ -377,7 +378,7 @@
       </div>
       <div class="card-sub-links">
         <a class="card-sub-link" href="https://glassroom.sageframe.net" target="_blank" rel="noopener">↗ glassroom.sageframe.net</a>
-        <a class="card-sub-link" href="LINK_WHEN_PUBLISHED" target="_blank" rel="noopener">↗ The Empty Container — position paper</a>
+        <a class="card-sub-link" href="#">↗ The Empty Container — position paper (forthcoming)</a>
       </div>
     </div>
 
@@ -509,11 +510,26 @@
     </a>
 
     <!-- SSH, Actually (navigable site) -->
-    <a class="card dim" href="https://ssh-actually.sageframe.net" target="_blank" rel="noopener">
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/ssh-actually" target="_blank" rel="noopener">
       <div class="card-name">SSH, Actually <span class="badge dev">in development</span></div>
-      <div class="card-desc">A navigable knowledge architecture for SSH — enter with a question, navigate by concept, dial the depth you need. Terminal-aesthetic, keyboard-driven, zero framework overhead. Built with HTMX because you don't need React for this. The first instance of *, Actually — a system for making relational technical knowledge accessible the way it should have been all along.</div>
-      <div class="card-meta">ssh-actually.sageframe.net</div>
+      <div class="card-desc">A navigable knowledge architecture for SSH — enter with a question, navigate by concept, dial the depth you need. Terminal-aesthetic, keyboard-driven, zero framework overhead. Built with HTMX. The first instance of *, Actually — a system for making relational technical knowledge accessible the way it should have been all along.</div>
+      <div class="card-meta">github/sageframe-no-kaji/ssh-actually</div>
     </a>
+
+    <!-- *, Actually -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <div class="card">
+          <div class="card-name">*, Actually <span class="badge planned">planned</span></div>
+          <div class="card-desc">A system for making relational technical knowledge navigable — enter with a question, dial the depth you need, never read more than you need. SSH, Actually is the first instance. The system is domain-agnostic: any field where understanding requires navigating relationships between concepts, not looking up isolated facts.</div>
+        </div>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/ssh-actually" target="_blank" rel="noopener">↗ SSH, Actually guide — github.com/sageframe-no-kaji/ssh-actually</a>
+        <a class="card-sub-link" href="https://atmarcus.net/about-the-hero" target="_blank" rel="noopener">↗ See the progressive-depth approach in action — atmarcus.net/about-the-hero</a>
+        <a class="card-sub-link" href="https://atmarcus.net/work/research" target="_blank" rel="noopener">↗ Research context — atmarcus.net/work/research</a>
+      </div>
+    </div>
 
   </section>
 
@@ -533,6 +549,13 @@
           <span class="link-label">The Ho System 歩</span>
           <span class="link-sub">A methodology for human-AI collaborative software development — enabling people with strong systems thinking but no formal engineering background to build production-quality software. Kanyō is its proof of concept.</span>
           <span class="link-meta">github</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://atmarcus.net/work/research" target="_blank" rel="noopener">
+          <span class="link-label">Research Program</span>
+          <span class="link-sub">How humans maintain identity, judgment, and voice in sustained AI collaboration. The full program: methodology, diagnostics, empirical questions, instruments.</span>
+          <span class="link-meta">atmarcus.net</span>
         </a>
       </li>
       <li>
