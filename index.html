@@ -244,6 +244,18 @@
     .badge.live      { border-color: var(--badge-live-border); color: var(--badge-live-color); }
     .badge.archived  { border-color: var(--rule); color: var(--muted); opacity: 0.6; }
     .badge.planned   { border-color: var(--badge-dev-border); color: var(--badge-dev-color); opacity: 0.65; }
+    .badge.research  { border-color: #3a3a5a; color: #7a7aaa; }
+
+    .section-intro {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .section-intro a { color: var(--accent); text-decoration: none; }
+    .section-intro a:hover { text-decoration: underline; }
 
     /* ── Link list ── */
     .link-list { list-style: none; }
@@ -411,13 +423,6 @@
       <div class="card-meta">open source · github/sageframe-no-kaji/pptx-builder</div>
     </a>
 
-    <!-- Shodō -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/shodo" target="_blank" rel="noopener">
-      <div class="card-name">Shodō 書道 <span class="badge dev">in development</span></div>
-      <div class="card-desc">A local-first tool that turns exported AI conversation history into searchable, generative knowledge. Semantic search, topic timelines, and LLM synthesis — past conversations become a second memory. Runs entirely on personal hardware.</div>
-      <div class="card-meta">github/sageframe-no-kaji/shodo · components: Shūji (compilation engine) / Shodō (learning interface)</div>
-    </a>
-
     <!-- Satori -->
     <a class="card dim" href="https://github.com/sageframe-no-kaji/satori-internal-affairs" target="_blank" rel="noopener">
       <div class="card-name">Satori <span class="badge dev">in development</span></div>
@@ -451,13 +456,6 @@
       <div class="card-name">Forteller <span class="badge dev">in development</span></div>
       <div class="card-desc">CLI tool for tending the relationship between a configuration vault and the machines it describes. A config file carries a pragma — a comment block declaring where it belongs and what should happen when it arrives. The file is both the artifact and the manifest. Push-only, vault-first, no agents, no YAML sprawl. Part of the Kṣetra-Ops suite.</div>
       <div class="card-meta">open source · github/sageframe-no-kaji/forteller</div>
-    </a>
-
-    <!-- Sutra -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/sutra" target="_blank" rel="noopener">
-      <div class="card-name">Sutra 経 <span class="badge dev">in development</span></div>
-      <div class="card-desc">A local-first desktop writing environment where each piece of writing is a git repository, and the tools of version control — history, branching, comparison — are surfaced as the natural experience of writing, not as hidden infrastructure. The writer never thinks about git. They think about Marks, Trails, Threads, Echoes, and Seeds. Mac-native, Swift/SwiftUI.</div>
-      <div class="card-meta">github/sageframe-no-kaji/sutra</div>
     </a>
 
     <!-- Pālana -->
@@ -533,14 +531,42 @@
 
   </section>
 
+  <!-- CONSTRUCTIVE INTERFERENCE -->
+  <section>
+    <div class="section-label">// constructive interference</div>
+    <p class="section-intro">A research and engagement program investigating how humans maintain identity, voice, and judgment in sustained AI collaboration — particularly in thinking and writing. The program develops ideas through a published essay practice and builds instruments practitioners can use. The three tools form a layered system: Destructive Interference + Voice DNA handles diagnosis — naming what goes wrong and detecting it. Sutra handles the creative process — making a writer's thinking visible and preserving it against drift. Shodō handles knowledge synthesis — recovering what the practitioner has learned across hundreds of AI sessions. Together: a research infrastructure and, eventually, an engagement platform for writers working seriously with AI. <a href="https://sageframe.substack.com" target="_blank" rel="noopener">Essays on Substack →</a></p>
+
+    <!-- Destructive Interference + Voice DNA -->
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/constructive-interference" target="_blank" rel="noopener">
+      <div class="card-name">Destructive Interference + Voice DNA <span class="badge dev">in development</span></div>
+      <div class="card-desc">A diagnostic taxonomy of seven named structural failure classes in AI-influenced writing — and a writer-facing tool that builds a personal voice profile and detects where new drafts drift from it. The taxonomy is complete and in daily use. Voice DNA is in early development: a BYOK Python/web application with a free diagnostic tier (taxonomy-based, no profile required) and a profiled tier calibrated to the individual writer's voice.</div>
+      <div class="card-meta">github/sageframe-no-kaji/constructive-interference</div>
+    </a>
+
+    <!-- Sutra -->
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/sutra" target="_blank" rel="noopener">
+      <div class="card-name">Sutra 経 <span class="badge dev">in development</span></div>
+      <div class="card-desc">A macOS-native writing environment where every piece is a git repository, but the writer never sees git — only Marks, Trails, Threads, Echoes, and Weaves. Makes the human writer's process visible and recoverable so that drift toward AI voice can be detected and resisted over time. Voice DNA integration planned as the first AI module post-MVP. Swift/SwiftUI.</div>
+      <div class="card-meta">github/sageframe-no-kaji/sutra</div>
+    </a>
+
+    <!-- Shodō -->
+    <a class="card dim" href="https://github.com/sageframe-no-kaji/shodo" target="_blank" rel="noopener">
+      <div class="card-name">Shodō 書道 <span class="badge dev">in development</span></div>
+      <div class="card-desc">A local-first tool that turns exported AI conversation history into searchable, synthesizable knowledge — semantic search, topic timelines, and LLM synthesis across hundreds of sessions, running entirely on personal hardware. Makes the thinking process visible: recurring questions, evolving understanding, and conceptual through-lines across months of practice that are invisible within any single conversation.</div>
+      <div class="card-meta">github/sageframe-no-kaji/shodo</div>
+    </a>
+
+  </section>
+
   <!-- RESEARCH & WRITING -->
   <section>
     <div class="section-label">// research &amp; writing</div>
     <ul class="link-list">
       <li>
         <a href="https://sageframe.substack.com" target="_blank" rel="noopener">
-          <span class="link-label">Constructive Interference</span>
-          <span class="link-sub">Essays on human-AI collaboration, systems thinking, and how structured design unlocks the real value of AI tools. Not prompt engineering — collaboration architecture.</span>
+          <span class="link-label">Constructive Interference — Essays</span>
+          <span class="link-sub">The published essay practice behind the CI research program. Human-AI collaboration, systems thinking, and collaboration architecture. Not prompt engineering.</span>
           <span class="link-meta">substack</span>
         </a>
       </li>
