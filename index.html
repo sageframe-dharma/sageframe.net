@@ -327,6 +327,48 @@
     }
     footer a { color: var(--muted); text-decoration: none; }
     footer a:hover { color: var(--accent); }
+
+    /* ── Shoshin coda: map figure + code sample ── */
+    .coda-figure {
+      border: 1px solid var(--rule);
+      background: var(--bg-raised);
+      padding: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .coda-figure svg { display: block; width: 100%; height: auto; }
+    .contour .line { fill: none; stroke: var(--rule); stroke-width: 1; }
+    .contour .peak { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0.85; }
+    .contour .ridge { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0.7; }
+    .contour .town { fill: var(--accent); }
+    .contour .lbl {
+      fill: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.06em;
+    }
+
+    .code-sample {
+      border: 1px solid var(--rule);
+      background: var(--bg-raised);
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.66rem;
+      line-height: 1.75;
+      color: var(--prose);
+      margin-bottom: 0.5rem;
+      white-space: pre;
+    }
+    .code-sample .c-key { color: var(--accent); }
+    .code-sample .c-str { color: var(--text); }
+    .code-sample .c-cmt { color: var(--muted); font-style: italic; }
+    .code-caption {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
   </style>
 </head>
 <body>
@@ -459,10 +501,38 @@
     </a>
 
     <!-- Pālana -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/palana" target="_blank" rel="noopener">
-      <div class="card-name">Pālana <span class="badge dev">in development</span></div>
-      <div class="card-desc">An operational workbench for tending a homelab. Not monitoring — a place to work. Dual-pane file manager with true server-side operations, ZFS-aware cross-dataset handling, a field view of the full machine topology, and Forteller built in. Tauri desktop app with Rust backend and Svelte frontend. Part of the Kṣetra-Ops suite.</div>
-      <div class="card-meta">github/sageframe-no-kaji/palana</div>
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://github.com/sageframe-no-kaji/palana" target="_blank" rel="noopener">
+          <div class="card-name">Pālana पालन <span class="badge dev">beta soon</span></div>
+          <div class="card-desc">A native Mac app for tending homelab infrastructure — calm, keyboard-first, dual-pane. Every operation compiles to a plan before it runs: the exact commands, the transport, the auth path. Moves and copies run server-side over SSH — host to host, your machine never carries the bytes — and it speaks ZFS natively. Not a dashboard; a place to sit down and work. Swift/SwiftUI. First tool of the Kṣetra-Ops suite.</div>
+          <div class="card-meta">open source · GPL-3.0 · beta within two weeks · github/sageframe-no-kaji/palana</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/palana/tree/main/ho-process" target="_blank" rel="noopener">↗ ho-process/ — built autonomously under the Ho Process; hands reserved for design &amp; UI</a>
+      </div>
+    </div>
+
+    <!-- Sharibako -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://github.com/sageframe-no-kaji/sharibako" target="_blank" rel="noopener">
+          <div class="card-name">Sharibako 舎利箱 <span class="badge dev">in development</span></div>
+          <div class="card-desc">A reliquary for digital secrets. A native Mac app and CLI that hold your API keys and env vars in a calm, age-encrypted, git-backed vault — shaped to how you actually work, by project and by machine. Materialize secrets as .env files or inject them at runtime so nothing touches disk. Link a secret once, rotate it once, and every project updates. Good hygiene is the easy default. The CLI is complete and usable today; the Swift GUI follows. Swift + Python, GPL-3.0.</div>
+          <div class="card-meta">open source · GPL-3.0 · github/sageframe-no-kaji/sharibako</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://hosystem.sageframe.net" target="_blank" rel="noopener">↗ the worked example anchoring the Ho System site</a>
+      </div>
+    </div>
+
+    <!-- sageframe-mcp -->
+    <a class="card" href="/sageframe-mcp.html">
+      <div class="card-name">sageframe-mcp <span class="badge live">in production</span></div>
+      <div class="card-desc">A local MCP server that exposes a personal homelab as deterministic, typed tools — so any Claude session can ask which hosts exist, what runs where, and what's quietly broken, and get structured data back instead of re-deriving SSH commands from docs every time. The skills are the strategy; this is the move set. Built under the Ho System. Source private — it encodes a live infrastructure map.</div>
+      <div class="card-meta">private source · in production · sageframe-mcp.html →</div>
     </a>
 
     <!-- Kinhin -->
@@ -472,25 +542,33 @@
       <div class="card-meta">github/sageframe-no-kaji/kinhin</div>
     </a>
 
-    <!-- Edelmore Reader -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/edelmore-reader" target="_blank" rel="noopener">
-      <div class="card-name">Edelmore Reader <span class="badge dev">in development</span></div>
-      <div class="card-desc">An adaptive, accessible reader for kids with dyslexia and other reading differences — designed around how a young reader actually experiences a text, not around clinical efficiency. Built on UDL principles: the tool bends to the child rather than measuring the deficit.</div>
-      <div class="card-meta">github/sageframe-no-kaji/edelmore-reader</div>
-    </a>
-
   </section>
 
   <!-- PROJECTS -->
   <section>
     <div class="section-label">// projects</div>
 
-    <!-- Edelmore -->
+    <!-- The Ho System -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://hosystem.sageframe.net" target="_blank" rel="noopener">
+          <div class="card-name">The Ho System 歩 <span class="badge live">live</span></div>
+          <div class="card-desc">A methodology for building real software with AI while keeping architectural authority and genuine understanding. The human directs and evaluates; the AI implements; a bounded <em>ho</em> (歩 — "step") is one planned work session, and a sequence of them carries a project from seed to production. Fully codified, published as skills, and walked in public through its own build records. This is "encode your craft into a system so a team can hit the bar without you in the room" — rendered as an actual system. Not vibe coding; the discipline that makes AI collaboration distinguishable from it.</div>
+          <div class="card-meta">hosystem.sageframe.net · open methodology</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/ho-system" target="_blank" rel="noopener">↗ the methodology — github/sageframe-no-kaji/ho-system</a>
+        <a class="card-sub-link" href="https://star-actually.sageframe.net" target="_blank" rel="noopener">↗ published under *, Actually — the framework below</a>
+      </div>
+    </div>
+
+    <!-- Edelmore (master) -->
     <div class="card-group">
       <div class="card-group-body">
         <a href="https://edelmore.sageframe.net" target="_blank" rel="noopener">
-          <div class="card-name">Edelmore <span class="badge live">live</span></div>
-          <div class="card-desc">A cottage-core web diary for a kid who wanted to keep a journal on her own terms — in the shape of a thing that already felt like a book. Adaptive, UDL-grounded, with voice transcription. A reading-and-writing space designed around a young person's experience first.</div>
+          <div class="card-name">Edelmore <span class="badge live">live</span> <span class="badge dev">in development</span></div>
+          <div class="card-desc">Accessibility-first, whimsical reading-and-writing projects built around how a young reader actually experiences a text — UDL-grounded, for kids with dyslexia and other reading differences. The tool bends to the child rather than measuring the deficit. Two pieces: <em>Edelmore</em>, a cottage-core web diary with voice transcription (live), and <em>Edelmore Reader</em>, an adaptive reader (in development).</div>
           <div class="card-meta">edelmore.sageframe.net</div>
         </a>
       </div>
@@ -525,25 +603,18 @@
       <div class="card-meta">instagram · @aspirationalintelligence</div>
     </a>
 
-    <!-- SSH, Actually (navigable site) -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/ssh-actually" target="_blank" rel="noopener">
-      <div class="card-name">SSH, Actually <span class="badge dev">in development</span></div>
-      <div class="card-desc">A navigable knowledge architecture for SSH — enter with a question, navigate by concept, dial the depth you need. Terminal-aesthetic, keyboard-driven, zero framework overhead. Built with HTMX. The first instance of *, Actually — a system for making relational technical knowledge accessible the way it should have been all along.</div>
-      <div class="card-meta">github/sageframe-no-kaji/ssh-actually</div>
-    </a>
-
-    <!-- *, Actually -->
+    <!-- *, Actually — the framework -->
     <div class="card-group">
       <div class="card-group-body">
-        <div class="card">
-          <div class="card-name">*, Actually <span class="badge planned">planned</span></div>
-          <div class="card-desc">A system for making relational technical knowledge navigable — enter with a question, dial the depth you need, never read more than you need. SSH, Actually is the first instance. The system is domain-agnostic: any field where understanding requires navigating relationships between concepts, not looking up isolated facts.</div>
-        </div>
+        <a href="https://star-actually.sageframe.net" target="_blank" rel="noopener">
+          <div class="card-name">*, Actually <span class="badge live">live</span></div>
+          <div class="card-desc">A framework for making relational technical knowledge navigable — enter with a question, dial the depth you need, never read more than you need. A domain-blind engine weaves depth-layered notes into a fully static, terminal-aesthetic, keyboard-driven site; each subject is an instance that supplies only its content. <em>SSH, Actually</em> is the first instance; <em>Ho System, Actually</em> is the second. Domain-agnostic: any field where understanding means navigating relationships between concepts, not looking up isolated facts.</div>
+          <div class="card-meta">star-actually.sageframe.net</div>
+        </a>
       </div>
       <div class="card-sub-links">
-        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/ssh-actually" target="_blank" rel="noopener">↗ SSH, Actually guide — github.com/sageframe-no-kaji/ssh-actually</a>
-        <a class="card-sub-link" href="https://atmarcus.net/about-the-hero" target="_blank" rel="noopener">↗ See the progressive-depth approach in action — atmarcus.net/about-the-hero</a>
-        <a class="card-sub-link" href="https://atmarcus.net/work/research" target="_blank" rel="noopener">↗ Research context — atmarcus.net/work/research</a>
+        <a class="card-sub-link" href="https://github.com/sageframe-no-kaji/ssh-actually" target="_blank" rel="noopener">↗ SSH, Actually — the first instance</a>
+        <a class="card-sub-link" href="https://atmarcus.net/work/research" target="_blank" rel="noopener">↗ research context — atmarcus.net/work/research</a>
       </div>
     </div>
 
@@ -552,29 +623,122 @@
   <!-- CONSTRUCTIVE INTERFERENCE -->
   <section>
     <div class="section-label">// constructive interference</div>
-    <p class="section-intro">A research and engagement program investigating how humans maintain identity, voice, and judgment in sustained AI collaboration — particularly in thinking and writing. The program develops ideas through a published essay practice and builds instruments practitioners can use. The three tools form a layered system: Destructive Interference + Voice DNA handles diagnosis — naming what goes wrong and detecting it. Sutra handles the creative process — making a writer's thinking visible and preserving it against drift. Shodō handles knowledge synthesis — recovering what the practitioner has learned across hundreds of AI sessions. Together: a research infrastructure and, eventually, an engagement platform for writers working seriously with AI. <a href="https://sageframe.substack.com" target="_blank" rel="noopener">Essays on Substack →</a></p>
+    <p class="section-intro">A research and engagement program investigating how people keep their identity, voice, and judgment in sustained AI collaboration — especially in thinking and writing. It develops its ideas through a published essay practice and builds instruments practitioners can actually use. The instruments now live at <a href="https://interference.sageframe.net" target="_blank" rel="noopener">interference.sageframe.net</a> — a diagnostic taxonomy, a voice profiler, a teaching system, and an extraction tool — with Sutra and Shodō handling process and synthesis alongside them. <a href="https://sageframe.substack.com" target="_blank" rel="noopener">Essays on Substack →</a></p>
 
-    <!-- Destructive Interference + Voice DNA -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/constructive-interference" target="_blank" rel="noopener">
-      <div class="card-name">Destructive Interference + Voice DNA <span class="badge dev">in development</span></div>
-      <div class="card-desc">A diagnostic taxonomy of seven named structural failure classes in AI-influenced writing — and a writer-facing tool that builds a personal voice profile and detects where new drafts drift from it. The taxonomy is complete and in daily use. Voice DNA is in early development: a BYOK Python/web application with a free diagnostic tier (taxonomy-based, no profile required) and a profiled tier calibrated to the individual writer's voice.</div>
-      <div class="card-meta">github/sageframe-no-kaji/constructive-interference</div>
+    <!-- interference.sageframe.net (hub) -->
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://interference.sageframe.net" target="_blank" rel="noopener">
+          <div class="card-name">interference.sageframe.net <span class="badge live">live</span></div>
+          <div class="card-desc">The home of the instruments — the tools of the Constructive Interference practice, published as usable skills with their thinking exposed. Voice DNA, Superposition, Destructive Interference, and Kiku, each with its own page. This is "scale your craft past your own hands," built and public.</div>
+          <div class="card-meta">interference.sageframe.net</div>
+        </a>
+      </div>
+      <div class="card-sub-links">
+        <a class="card-sub-link" href="https://interference.sageframe.net/voice-dna" target="_blank" rel="noopener">↗ Voice DNA</a>
+        <a class="card-sub-link" href="https://interference.sageframe.net/superposition" target="_blank" rel="noopener">↗ Superposition</a>
+        <a class="card-sub-link" href="https://interference.sageframe.net/destructive-interference" target="_blank" rel="noopener">↗ Destructive Interference</a>
+        <a class="card-sub-link" href="https://interference.sageframe.net/kiku" target="_blank" rel="noopener">↗ Kiku</a>
+      </div>
+    </div>
+
+    <!-- Voice DNA -->
+    <a class="card" href="https://interference.sageframe.net/voice-dna" target="_blank" rel="noopener">
+      <div class="card-name">Voice DNA <span class="badge live">live</span></div>
+      <div class="card-desc">A corpus-primary voice instrument: your writing in, an evidence-anchored voice profile out, compiled into a personal skill with two faces — a personalized audit ("where does this stop sounding like me?") and a voice framing ("make a session sound like me before it starts"). A mirror, not a judge. Self-DNA only. Learns a voice from a corpus or from a structured interview, so a writer with little writing still gets a complete profile.</div>
+      <div class="card-meta">interference.sageframe.net/voice-dna</div>
+    </a>
+
+    <!-- Superposition -->
+    <a class="card" href="https://interference.sageframe.net/superposition" target="_blank" rel="noopener">
+      <div class="card-name">Superposition <span class="badge live">live</span></div>
+      <div class="card-desc">A teaching system that walks a literate non-writer through producing a piece that is genuinely theirs — a talk, an essay, a toast, a letter. It finds what the person actually cares about, builds their voice from their reactions, drafts with the machine's guesses exposed, and refuses to ghostwrite. Uses Constructive Interference and Voice DNA underneath. Their material, their voice, their judgment.</div>
+      <div class="card-meta">interference.sageframe.net/superposition</div>
+    </a>
+
+    <!-- Destructive Interference -->
+    <a class="card" href="https://interference.sageframe.net/destructive-interference" target="_blank" rel="noopener">
+      <div class="card-name">Destructive Interference <span class="badge live">live</span></div>
+      <div class="card-desc">A diagnostic taxonomy of named structural failure classes in AI-influenced writing — the ways a draft drifts toward the machine's voice and away from the writer's. The naming is the tool: once a failure class has a name you can see it, and once you can see it you can resist it. In daily use, and the diagnostic layer the other instruments build on.</div>
+      <div class="card-meta">interference.sageframe.net/destructive-interference</div>
+    </a>
+
+    <!-- Kiku -->
+    <a class="card" href="https://interference.sageframe.net/kiku" target="_blank" rel="noopener">
+      <div class="card-name">Kiku 聴く <span class="badge live">live</span></div>
+      <div class="card-desc">Extracts classes of language behavior from AI conversation exports — a hybrid regex-plus-LLM tool that finds where the machine's language shifts over a long collaboration. Point it at a single conversation or a whole corpus; regex catches the obvious hits, semantic classification catches the register shifts no pattern could. Built to study how AI language changes across extended work.</div>
+      <div class="card-meta">interference.sageframe.net/kiku</div>
     </a>
 
     <!-- Sutra -->
-    <a class="card dim" href="https://github.com/sageframe-no-kaji/sutra" target="_blank" rel="noopener">
+    <div class="card dim">
       <div class="card-name">Sutra 経 <span class="badge dev">in development</span></div>
       <div class="card-desc">A macOS-native writing environment where every piece is a git repository, but the writer never sees git — only Marks, Trails, Threads, Echoes, and Weaves. Makes the human writer's process visible and recoverable so that drift toward AI voice can be detected and resisted over time. Voice DNA integration planned as the first AI module post-MVP. Swift/SwiftUI.</div>
-      <div class="card-meta">github/sageframe-no-kaji/sutra</div>
-    </a>
+      <div class="card-meta">source not yet public</div>
+    </div>
 
     <!-- Shodō -->
-    <a class="card" href="https://github.com/sageframe-no-kaji/shodo" target="_blank" rel="noopener">
-      <div class="card-name">Shodō 書道 <span class="badge dev">in development</span></div>
-      <div class="card-desc">Turns exported AI conversation history into a searchable, synthesizable knowledge base, running entirely on personal hardware. Semantic search is working; the front end and LLM synthesis layer are in active build. Surfaces the through-lines across months of practice — recurring questions, shifts in understanding — that stay invisible inside any single conversation.</div>
-      <div class="card-meta">github/sageframe-no-kaji/shodo</div>
-    </a>
+    <div class="card-group">
+      <div class="card-group-body">
+        <a href="https://shodo.sageframe.net" target="_blank" rel="noopener">
+          <div class="card-name">Shodō 書道 <span class="badge live">live</span> <span class="badge dev">beta</span></div>
+          <div class="card-desc">Turns exported AI conversation history into a searchable, synthesizable knowledge base, running entirely on personal hardware. Surfaces the through-lines across months of practice — recurring questions, shifts in understanding — that stay invisible inside any single conversation. Semantic search is working; the synthesis layer and its own MCP server are in active build.</div>
+          <div class="card-meta">shodo.sageframe.net</div>
+        </a>
+      </div>
+    </div>
 
+  </section>
+
+  <!-- SHOSHIN NO SONO (coda) -->
+  <section class="coda">
+    <div class="section-label">// 初心の園 — what comes next</div>
+    <p class="section-intro"><strong>Shoshin no Sono</strong> — the Garden of Beginner's Mind — is the map that will replace this page. What looks like fifteen projects is one project, prosecuted across software, methodology, and writing for years. The garden renders that body of work as a procedurally generated topographic map: each work a peak, each essay a town, the relationships between them drawn as ridges and trails. Same data, a fresh map on every visit and every theme. A taste of what's coming.</p>
+
+    <div class="coda-figure">
+      <svg class="contour" viewBox="0 0 600 250" role="img" aria-label="Procedural contour-map preview — peaks are works, towns are writing">
+        <!-- ridge between the two tallest peaks -->
+        <path class="ridge" d="M 190 122 Q 305 96 424 108" />
+        <!-- Peak A -->
+        <ellipse class="line" cx="170" cy="135" rx="108" ry="74" />
+        <ellipse class="line" cx="170" cy="135" rx="82" ry="57" />
+        <ellipse class="line" cx="170" cy="135" rx="58" ry="41" />
+        <ellipse class="line" cx="170" cy="135" rx="38" ry="27" />
+        <ellipse class="peak" cx="170" cy="135" rx="20" ry="14" />
+        <!-- Peak B -->
+        <ellipse class="line" cx="440" cy="110" rx="76" ry="56" />
+        <ellipse class="line" cx="440" cy="110" rx="52" ry="39" />
+        <ellipse class="line" cx="440" cy="110" rx="32" ry="24" />
+        <ellipse class="peak" cx="440" cy="110" rx="16" ry="12" />
+        <!-- Peak C -->
+        <ellipse class="line" cx="350" cy="188" rx="42" ry="31" />
+        <ellipse class="line" cx="350" cy="188" rx="26" ry="20" />
+        <ellipse class="peak" cx="350" cy="188" rx="13" ry="10" />
+        <!-- towns -->
+        <rect class="town" x="108" y="196" width="5" height="5" />
+        <rect class="town" x="253" y="163" width="5" height="5" />
+        <rect class="town" x="298" y="118" width="5" height="5" />
+        <rect class="town" x="484" y="159" width="5" height="5" />
+        <rect class="town" x="392" y="206" width="5" height="5" />
+        <!-- labels -->
+        <text class="lbl" x="132" y="50">歩 Ho System</text>
+        <text class="lbl" x="404" y="46">観鷹 Kanyō</text>
+        <text class="lbl" x="312" y="234">Glassroom</text>
+      </svg>
+    </div>
+
+    <div class="code-sample"><span class="c-cmt">// works.json — the body of work as data. Each theme is a gate:</span>
+<span class="c-cmt">// sageframe.net/?theme=craft draws a different map of the same territory.</span>
+{
+  <span class="c-key">"theme_vocabulary"</span>: {
+    <span class="c-key">"craft"</span>:        <span class="c-str">"Practice, discipline, how-to-make. Ho System, Dandori."</span>,
+    <span class="c-key">"relationship"</span>: <span class="c-str">"How people meet AI and each other. Pink Teaming, Voice DNA."</span>,
+    <span class="c-key">"attention"</span>:    <span class="c-str">"Where focus goes, how it's protected. *, Actually."</span>,
+    <span class="c-key">"sovereignty"</span>:  <span class="c-str">"Self-determination in tools and data. m4Bookmaker, Hōzō."</span>,
+    <span class="c-key">"continuity"</span>:   <span class="c-str">"Persistence across time — voice, method, infra. Shodō."</span>
+  }
+}</div>
+    <div class="code-caption">sample · shoshin-no-sono/works.json · in active design</div>
   </section>
 
   <!-- RESEARCH & WRITING -->
@@ -589,10 +753,10 @@
         </a>
       </li>
       <li>
-        <a href="https://github.com/sageframe-no-kaji/ho-system" target="_blank" rel="noopener">
+        <a href="https://hosystem.sageframe.net" target="_blank" rel="noopener">
           <span class="link-label">The Ho System 歩</span>
-          <span class="link-sub">A methodology for human-AI collaborative software development — enabling people with strong systems thinking but no formal engineering background to build production-quality software. Kanyō is its proof of concept.</span>
-          <span class="link-meta">github</span>
+          <span class="link-sub">A methodology for human-AI collaborative software development — enabling people with strong systems thinking but no formal engineering background to build production-quality software. Kanyō, Pālana, and sageframe-mcp are built under it.</span>
+          <span class="link-meta">hosystem</span>
         </a>
       </li>
       <li>
@@ -621,6 +785,13 @@
           <span class="link-label">atmarcus.net</span>
           <span class="link-sub">Portfolio, case studies, and consulting practice. Systems design, organizational strategy, and human-AI collaboration methodology.</span>
           <span class="link-meta">portfolio</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://blueprintforcreativity.com" target="_blank" rel="noopener">
+          <span class="link-label">Blueprint for Creativity</span>
+          <span class="link-sub">Creative practice and enablement for kids, adults, and small businesses. The consulting practice at that scale; atmarcus.net holds the enterprise and institutional tier.</span>
+          <span class="link-meta">forthcoming</span>
         </a>
       </li>
       <li>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sageframe-mcp — the move set</title>
+  <meta name="description" content="sageframe-mcp — a local MCP server exposing a personal homelab as deterministic, typed tools. Built under the Ho System." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    [data-theme="dark"] {
+      --bg:         #1a1a1a;
+      --bg-raised:  #212120;
+      --text:       #c8c2b8;
+      --prose:      #b0a99e;
+      --muted:      #777770;
+      --rule:       #2e2e2c;
+      --accent:     #c45a2d;
+      --icon-bg:    #212120;
+    }
+
+    [data-theme="light"] {
+      --bg:         #f5f2ed;
+      --bg-raised:  #ebe6dd;
+      --text:       #1a1a1a;
+      --prose:      #4a4a4a;
+      --muted:      #7a7a7a;
+      --rule:       #d0c9be;
+      --accent:     #c45a2d;
+      --icon-bg:    #ebe6dd;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', 'Courier New', monospace;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    body {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    /* ── Theme toggle ── */
+    .theme-toggle {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: none;
+      border: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      letter-spacing: 0.08em;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── Back link ── */
+    .back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+    }
+    .back:hover { color: var(--accent); }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+    .sf-icon { width: 36px; height: 36px; flex-shrink: 0; }
+    .sf-icon .icon-bg { fill: var(--icon-bg); transition: fill 0.2s; }
+    .wordmark {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+    .header-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      padding-left: calc(36px + 0.9rem);
+      margin-bottom: 2.75rem;
+    }
+
+    /* ── Hero ── */
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+    h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+    }
+    .tagline {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+    }
+    .lede {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.8;
+    }
+    .lede em { color: var(--text); font-style: italic; }
+
+    hr.rule { border: 0; height: 1px; background: var(--rule); margin: 2.75rem 0; }
+
+    /* ── Sections ── */
+    section { margin-bottom: 0; }
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1.1rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.3;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+    h2 em { font-style: italic; color: var(--accent); }
+    .prose {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.8;
+    }
+    .prose p + p { margin-top: 0.9rem; }
+    .prose em { color: var(--text); font-style: italic; }
+    .prose strong { color: var(--text); font-weight: 500; }
+
+    /* ── Split cards ── */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .split .card {
+      border: 1px solid var(--rule);
+      background: var(--bg-raised);
+      padding: 1.1rem 1.1rem;
+    }
+    .split .card .k {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .split .card h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .split .card p {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.6;
+    }
+
+    /* ── Numbered list ── */
+    .why-item {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 0.9rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--rule);
+    }
+    .why-item:last-child { border-bottom: 1px solid var(--rule); }
+    .why-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent);
+      padding-top: 0.15rem;
+    }
+    .why-item h3 {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+    .why-item p {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--prose);
+      line-height: 1.65;
+    }
+    .why-item em { color: var(--text); font-style: italic; }
+
+    /* ── Chain ── */
+    .chain {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.5rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      align-items: center;
+    }
+    .chain span {
+      border: 1px solid var(--rule);
+      padding: 0.3rem 0.6rem;
+      color: var(--text);
+    }
+    .chain span.arrow { border: 0; color: var(--accent); padding: 0.3rem 0.05rem; }
+
+    /* ── Spec grid ── */
+    .spec {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-top: 1.5rem;
+    }
+    .spec div { background: var(--bg-raised); padding: 0.9rem 1rem; }
+    .spec .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+      text-transform: lowercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .spec .val {
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.65rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 560px) {
+      .split, .spec { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <span id="theme-label">light</span>
+  </button>
+
+  <a class="back" href="/">← sageframe</a>
+
+  <!-- HEADER -->
+  <div class="header">
+    <svg class="sf-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 301 301">
+      <circle class="icon-bg" cx="150.5" cy="150.5" r="150.5"/>
+      <g stroke="#c45a2d" stroke-linecap="square" stroke-miterlimit="10" stroke-width="23" fill="none">
+        <line x1="150.19" y1="52.98" x2="150.19" y2="257.92"/>
+        <line x1="86.88" y1="106.38" x2="182.15" y2="203.64"/>
+        <line x1="86.88" y1="236.27" x2="150.19" y2="172.97"/>
+        <line x1="150.19" y1="43.08" x2="214.12" y2="106.38"/>
+        <line x1="86.88" y1="106.38" x2="150.19" y2="43.08"/>
+      </g>
+    </svg>
+    <div class="wordmark">sageframe-mcp</div>
+  </div>
+  <div class="header-meta">v0.2 · read-only slice · MCP over stdio</div>
+
+  <!-- HERO -->
+  <div class="eyebrow">Homelab operations as typed tools</div>
+  <h1>Knowledge that should live once, living somewhere callable.</h1>
+  <div class="tagline">The skills are the strategy. This is the move set.</div>
+  <p class="lede">A local MCP server that exposes a personal homelab as deterministic, typed tools — so any Claude session can ask <em>which hosts exist</em>, <em>what runs where</em>, and <em>what's quietly broken</em>, and get structured data back instead of re-deriving SSH commands from documentation every time.</p>
+
+  <hr class="rule" />
+
+  <!-- THE PROBLEM -->
+  <section>
+    <div class="section-label">// the problem</div>
+    <h2>Documentation is a thing you read. Not a thing you call.</h2>
+    <div class="prose">
+      <p>A homelab accretes knowledge the way any real system does: across skill files, reference docs, an SSH config, a deploy runbook, a half-remembered incident. The execution paths <em>are</em> written down — but documentation has to be read and translated on every use, and translation is lossy and repeated.</p>
+      <p>The host inventory alone lived in <strong>five separate sources that disagreed with each other</strong> — one of them still pointing at an IP that had moved months earlier. Five mirrors of one truth, quietly drifting. Every new session paid the tax of reconciling them by hand.</p>
+      <p>The fix isn't better documentation. It's turning the executable parts into <strong>verbs</strong> — encoded once, called deterministically, returning data the agent can reason over rather than a text blob it has to parse.</p>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- THE INVERSION -->
+  <section>
+    <div class="section-label">// the idea</div>
+    <h2>Skills teach <em>when</em>. The MCP guarantees <em>how</em>.</h2>
+    <div class="prose">
+      <p>The interesting move is a separation of concerns most infrastructure tooling collapses. The skills stay authoritative for judgment — whether and when to act. The MCP owns mechanism — the exact command, path, and flag, executed the same way every time. Strategy and execution stop being tangled in the same prose.</p>
+    </div>
+    <div class="split">
+      <div class="card">
+        <div class="k">strategy layer</div>
+        <h3>The skills</h3>
+        <p>Teach an agent how to think about the homelab — when a deploy is warranted, why a mount gets verified before a backup, which host earns a service. Judgment, not verbs.</p>
+      </div>
+      <div class="card">
+        <div class="k">execution layer</div>
+        <h3>The MCP</h3>
+        <p>Encodes the mechanical parts as callable tools. One tool call returns a typed model — deterministic, testable, impossible to get subtly wrong the way a hand-copied command is.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- WHY IT'S INTERESTING -->
+  <section>
+    <div class="section-label">// why it's interesting</div>
+    <h2>Four things it gets right that generic tools don't.</h2>
+
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div>
+        <h3>It is deliberately not generic.</h3>
+        <p>Generic infrastructure MCP servers exist. They don't know that one host needs a jump, that another's sudo wants an interactive password, that a third is off-site on a tailnet, or that a past data-loss incident is <em>why</em> a verification gate exists. This project's entire value is that it encodes a specific topology and specific hard-won rituals — the parts a generic tool can never carry.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div>
+        <h3>It reflects truth — it never authors it.</h3>
+        <p>The server reads a single hand-authored inventory and probes live state. It never mutates the source of truth. Reads come first; writes are staged behind them, gated three ways, and never the default. The design makes "reflected truth" safe over time by structurally refusing to become a fourth place the truth can drift to.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div>
+        <h3>Structured data in, structured data out.</h3>
+        <p>Tools return Pydantic models, not shell output. "What's quietly broken" is one fan-out call surfacing failed units across every host as typed records — something an agent can act on directly, rather than a wall of text it has to re-parse and hope it read correctly.</p>
+      </div>
+    </div>
+
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div>
+        <h3>It's a worked example of a method.</h3>
+        <p>The whole thing was built under the Ho System discipline — a documented chain from seed to system design to build sequence, each session bounded and planned before any code was written. The repository is as much a demonstration of <em>how</em> to build a real tool deliberately as it is the tool itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- METHOD -->
+  <section>
+    <div class="section-label">// the method</div>
+    <h2>Nothing here was improvised.</h2>
+    <div class="prose">
+      <p>Every decision has a paper trail. The architecture was committed before the first line of code; each working session opened against a single bounded document and closed when its deliverable was done. Earlier decisions stay on the record rather than being quietly rewritten — the history of what the project believed at each step is preserved, not laundered.</p>
+      <p>The verification stack runs at every commit: <strong>lint, strict type-checking, and a test suite held above a 90% coverage floor</strong>, enforced by pre-commit hooks. The discipline isn't ceremony — it's what lets a homelab tool be trusted to say what's true about the machines it touches.</p>
+    </div>
+    <div class="chain">
+      <span>seed</span><span class="arrow">→</span>
+      <span>system design</span><span class="arrow">→</span>
+      <span>README</span><span class="arrow">→</span>
+      <span>ho sequence</span><span class="arrow">→</span>
+      <span>per-ho builds</span>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FOOTPRINT -->
+  <section>
+    <div class="section-label">// technical footprint</div>
+    <h2>Small, sharp, and honest about its edges.</h2>
+    <div class="prose">
+      <p>Roughly ten source modules doing exactly what they claim. The SSH executor is a thin, well-tested subprocess layer over OpenSSH that honors the existing config as the single source of connection truth — no key handling, no cleverness. When a host needs a privilege the tool can't grant non-interactively, it surfaces a structured error saying so, rather than pretending.</p>
+    </div>
+    <div class="spec">
+      <div><div class="label">transport</div><div class="val">FastMCP over stdio</div></div>
+      <div><div class="label">language</div><div class="val">Python · uv · src/ layout</div></div>
+      <div><div class="label">connection</div><div class="val">OpenSSH, config-driven</div></div>
+      <div><div class="label">returns</div><div class="val">Typed Pydantic models</div></div>
+      <div><div class="label">concurrency</div><div class="val">Bounded cross-host fan-out</div></div>
+      <div><div class="label">verification</div><div class="val">ruff · mypy strict · pytest ≥90%</div></div>
+    </div>
+    <div class="prose" style="margin-top:1.5rem;">
+      <p>Source is private — the server encodes a live map of personal infrastructure. This page is the public account of what it is and why it's built the way it is.</p>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/">← sageframe</a>
+    <span>sageframe-mcp · built under the Ho System · © 2026 Andrew T. Marcus</span>
+  </footer>
+
+  <script>
+    const stored = localStorage.getItem('sf-theme');
+    const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (sysDark ? 'dark' : 'light');
+    setTheme(initial);
+
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      document.getElementById('theme-label').textContent = t === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('sf-theme', t);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+</body>
+</html>
