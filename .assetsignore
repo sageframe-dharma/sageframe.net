@@ -1,0 +1,25 @@
+# The asset root is the repo root, so wrangler publishes anything sitting in
+# this directory. Everything that is not part of the public site must be
+# listed here — .gitignore does NOT protect it, because wrangler reads the
+# filesystem, not git.
+.git
+.git/**
+.gitignore
+.assetsignore
+.wrangler
+.wrangler/**
+.DS_Store
+**/.DS_Store
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+node_modules
+node_modules/**
+wrangler.jsonc
+wrangler.toml
+package.json
+package-lock.json
+README.md
+ho-process
+ho-process/**
