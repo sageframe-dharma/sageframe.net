@@ -158,11 +158,32 @@ section + section { border-top: 1px solid var(--rule); }
   border-bottom: 2px solid transparent;
 }
 .nav a.on { color: var(--ink); border-bottom-color: var(--accent); }
-@media (max-width: 640px) {
-  .nav .wordmark { display: none; }
-  .nav .wrap { padding: 0 8px; height: 44px; }
-  .nav ul { margin: 0; width: 100%; justify-content: space-between; }
-  .nav a { padding: .8rem .35rem .65rem; font-size: .72rem; }
+.menu-btn { display: none; }
+@media (max-width: 760px) {
+  .nav .wrap { height: 48px; justify-content: space-between; }
+  .menu-btn {
+    display: flex; align-items: center; gap: .55rem; margin-right: -8px; padding: .6rem 8px;
+    background: none; border: 0; cursor: pointer; color: var(--accent);
+    font: 400 .78rem/1 var(--font-mono); letter-spacing: .04em;
+  }
+  .menu-btn .bars { position: relative; width: 18px; height: 12px; }
+  .menu-btn .bars::before, .menu-btn .bars::after, .menu-btn .bars i {
+    content: ""; position: absolute; left: 0; width: 18px; height: 1.5px; background: currentColor; transition: transform .2s ease, opacity .2s ease;
+  }
+  .menu-btn .bars::before { top: 0; } .menu-btn .bars i { top: 5.25px; } .menu-btn .bars::after { bottom: 0; }
+  .nav.open .menu-btn .bars::before { transform: translateY(5.25px) rotate(45deg); }
+  .nav.open .menu-btn .bars::after { transform: translateY(-5.25px) rotate(-45deg); }
+  .nav.open .menu-btn .bars i { opacity: 0; }
+  .nav ul {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; margin: 0;
+    flex-direction: column; gap: 0; overflow: visible;
+    background: var(--ground); border-bottom: 1px solid var(--rule);
+    box-shadow: 0 8px 16px rgba(26, 26, 26, .08);
+  }
+  .nav.open ul { display: flex; }
+  .nav li { border-top: 1px solid var(--rule); }
+  .nav a { padding: 1rem var(--gutter); font-size: .9rem; border-bottom: 0; border-left: 2px solid transparent; }
+  .nav a.on { border-left-color: var(--accent); }
 }
 
 /* ================================================================
@@ -200,7 +221,8 @@ figcaption { font: 400 .72rem/1.5 var(--font-mono); color: var(--ink-muted); mar
 @media (min-width: 640px) { .pair { grid-template-columns: 1fr 1fr; } .pair.lead-wide { grid-template-columns: 1.5fr 1fr; } }
 .pair figure img { aspect-ratio: 4 / 3; object-fit: cover; }
 .pair .tall img { aspect-ratio: 3 / 4; }
-@media (min-width: 640px) { .pair .tall img { aspect-ratio: auto; height: 100%; } .pair .tall { display: flex; flex-direction: column; } .pair .tall img { flex: 1; min-height: 0; } }
+/* lead-wide: 1.5fr + 1fr columns; a 9:8 crop on the left matches a 3:4 portrait on the right */
+@media (min-width: 640px) { .pair.lead-wide { align-items: start; } .pair.lead-wide figure:first-child img { aspect-ratio: 9 / 8; } }
 .wide-fig { margin: 2.5rem 0 0; }
 .wide-fig img { aspect-ratio: 16 / 9; object-fit: cover; }
 
@@ -373,7 +395,7 @@ section.night + section { border-top: 0; }
   display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
   background: var(--ground); padding: .7rem 0; border-bottom: 1px solid var(--rule); margin-bottom: 1rem;
 }
-@media (max-width: 640px) { .packbar { top: 44px; } }
+@media (max-width: 760px) { .packbar { top: 48px; } }
 .count { font: 500 .85rem/1 var(--font-mono); color: var(--ink); }
 .meter { flex: 1; min-width: 80px; height: 4px; background: var(--rule); border-radius: 2px; overflow: hidden; }
 .meter i { display: block; height: 100%; width: 0; background: var(--ink); transition: width .3s ease; }
@@ -472,7 +494,8 @@ footer li { margin-bottom: .35rem; }
 <nav class="nav" aria-label="Sections">
   <div class="wrap">
     <a class="wordmark" href="#trip" style="color:inherit">ethan pond</a>
-    <ul>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-list"><span class="bars"><i></i></span>menu</button>
+    <ul id="nav-list">
       <li><a href="#trip">trip</a></li>
       <li><a href="#schedule">schedule</a></li>
       <li><a href="#trails">trails</a></li>
@@ -613,7 +636,7 @@ footer li { margin-bottom: .35rem; }
         <li><a href="https://appalachiantrail.org/hikes/ethan-pond/">Ethan Pond on the Appalachian Trail Conservancy site</a></li>
         <li><a href="https://www.fs.usda.gov/r09/whitemountain/recreation/ethan-pond-ripley-falls-trailhead">Trailhead info from the Forest Service</a></li>
       </ul>
-      <p class="callout"><strong>Download your maps before we leave.</strong> There's no cell service in the notch. I'll have a paper map too.</p>
+      <p class="callout"><strong>Download and print maps before we leave, if you want them.</strong> There's likely no cell service in the notch.</p>
     </div>
   </div>
 </section>
@@ -640,10 +663,10 @@ footer li { margin-bottom: .35rem; }
             </tbody>
           </table>
         </div>
-        <p><strong>We eat dinner in the car</strong>, so we don't lose an hour to a restaurant. We are not cooking Friday night — we're getting the tents up and getting warm.</p>
+        <p><strong>We eat dinner in the car</strong>, so we don't have to set up camp and cook in the dark.</p>
         <p>Then we hike in: <strong>2.8 miles, about 1,600 feet up.</strong></p>
-        <p>Here's the shape of it. The first stretch is the work — there's a steep half mile early where we climb out of the notch. Then we top out and the trail becomes an old road that rolls gently downhill to the pond. So the hard part happens while everybody's still fresh, and the last two miles are easy.</p>
-        <p><strong>Most of this will be in the dark, and that's fine.</strong> We've done it before. Everybody needs a headlamp, and it lives in a jacket pocket where you can reach it without taking your pack off — not buried at the bottom of your bag.</p>
+        <p>The first stretch is the hard part — a steep half mile while we climb out of the notch. Then we top out and the trail becomes an old road that rolls gently downhill to the pond. The last two miles are easy.</p>
+        <p><strong>Most of this will be in the dark.</strong> We've done it before! We will all have headlamps and the hike is straightforward.</p>
         <p>We set up, eat something warm, and go to bed.</p>
       </div>
       <div class="side">
@@ -1019,10 +1042,6 @@ footer li { margin-bottom: .35rem; }
   function set(id) {
     if (id === current) return; current = id;
     links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + id); });
-    var on = links[ids.indexOf(id)];
-    if (on && on.scrollIntoView && window.matchMedia('(max-width: 640px)').matches) {
-      var ul = on.parentNode.parentNode; ul.scrollLeft = on.offsetLeft - ul.clientWidth / 2 + on.clientWidth / 2;
-    }
   }
   var secs = [].slice.call(document.querySelectorAll('main > section'));
   function onScroll() {
@@ -1031,6 +1050,13 @@ footer li { margin-bottom: .35rem; }
     set(ids.indexOf(id) > -1 ? id : null);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Phones: hamburger opens the list; picking a section or Escape closes it.
+  var nav = document.querySelector('.nav'), btn = nav.querySelector('.menu-btn');
+  function openMenu(v) { nav.classList.toggle('open', v); btn.setAttribute('aria-expanded', v ? 'true' : 'false'); }
+  btn.addEventListener('click', function () { openMenu(!nav.classList.contains('open')); });
+  links.forEach(function (a) { a.addEventListener('click', function () { openMenu(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') openMenu(false); });
   onScroll();
 })();
 
